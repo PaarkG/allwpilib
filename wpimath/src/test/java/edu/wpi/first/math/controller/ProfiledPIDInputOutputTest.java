@@ -28,6 +28,9 @@ class ProfiledPIDInputOutputTest {
 
     // Error must be less than half the input range at all times
     assertTrue(Math.abs(controller.getSetpoint().position - kMeasurement) < 180.0);
+
+    // Confirming continuous input logic for next setpoint method
+    assertTrue(controller.getNextSetpoint().position < kMeasurement);
   }
 
   @Test
@@ -47,6 +50,9 @@ class ProfiledPIDInputOutputTest {
 
     // Error must be less than half the input range at all times
     assertTrue(Math.abs(controller.getSetpoint().position - kMeasurement) < Math.PI);
+
+    // Confirming continuous input logic for next setpoint method
+    assertTrue(controller.getNextSetpoint().position < kMeasurement);
   }
 
   @Test
@@ -66,6 +72,9 @@ class ProfiledPIDInputOutputTest {
 
     // Error must be less than half the input range at all times
     assertTrue(Math.abs(controller.getSetpoint().position - kMeasurement) < Math.PI);
+
+    // Confirming continuous input logic for next setpoint method
+    assertTrue(controller.getNextSetpoint().position < kMeasurement);
   }
 
   @Test
@@ -85,6 +94,9 @@ class ProfiledPIDInputOutputTest {
 
     // Error must be less than half the input range at all times
     assertTrue(Math.abs(controller.getSetpoint().position - kMeasurement) < Math.PI / 2.0);
+
+    // Confirming continuous input logic for next setpoint method
+    assertTrue(controller.getNextSetpoint().position < kMeasurement);
   }
 
   @Test

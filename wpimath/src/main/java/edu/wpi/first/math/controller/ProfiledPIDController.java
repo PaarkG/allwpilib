@@ -262,6 +262,25 @@ public class ProfiledPIDController implements Sendable {
   }
 
   /**
+   * Returns the next setpoint of the ProfiledPIDController.
+   *
+   * @return The next setpoint.
+   */
+  public TrapezoidProfile.State getNextSetpoint() {
+    if (m_controller.isContinuousInputEnabled()) {
+      // Get error which is the smallest distance between goal and measurement.
+      // Doesn't modify setpoint because this calculates the next setpoint using the current
+      // setpoint as it's "measured position".
+      double errorBound = (m_maximumInput - m_minimumInput) / 2.0;
+      double goalMinDistance =
+          MathUtil.inputModulus(m_goal.position - m_setpoint.position, -errorBound, errorBound);
+
+      m_goal.position = goalMinDistance + m_setpoint.position;
+    }
+    return m_profile.calculate(m_controller.getPeriod(), m_setpoint, m_goal);
+  }
+
+  /**
    * Returns true if the error is within the tolerance of the error.
    *
    * <p>This will return false until at least one input value has been computed.
